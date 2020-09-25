@@ -1,28 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./App.css";
-import Row from "./components/Row";
 import request from "./request";
-import instance from "./utils/axios";
+
+import Row from "./components/Row";
+import Banner from "./components/Banner";
 
 // API Key = 500c67c3d5e23e2934ce88303472f71c
 // Accessing poster image base url = https://image.tmdb.org/t/p/w500
+// Accessing poster image base url = https://image.tmdb.org/t/p/original  --> this would give high resolution images
 
 function App() {
-  const [trendingNow, setTrendingNow] = useState([]);
-  useEffect(() => {
-    instance.get(request.fetchTrending).then((data) => {
-      // console.log(data);
-      const results = data;
-      console.log(results);
-      setTrendingNow(results);
-    });
-  }, []);
-
-  console.log(trendingNow);
-
   return (
     <div className="app">
-      <Row title="Ternding Now" />
+      {/* Nav */}
+      {/* Banner */}
+      <Banner />
+      {/* Row */}
+      <Row
+        isLargeRow
+        title="NETFLIX ORIGINALS"
+        fetchUrl={request.fetchNetflixOriginals}
+      />
+      <Row title="Ternding Now" fetchUrl={request.fetchTrending} />
+      <Row title="Top Rated" fetchUrl={request.fetchTopRated} />
+      <Row title="Action Movies" fetchUrl={request.fetchActionMovies} />
+      <Row title="Comedy Movies" fetchUrl={request.fetchComedyMovies} />
+      <Row title="Horror Movies" fetchUrl={request.fetchHorrorMovies} />
+      <Row title="Romance" fetchUrl={request.fetchRomanceMovies} />
+      <Row title="Documentaries" fetchUrl={request.fetchDocumentaries} />
     </div>
   );
 }
